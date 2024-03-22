@@ -13,20 +13,25 @@ public class Box : Characters
 
     public void OnMouseUp()
     {
-        isDragging = false;
+      
 
         Vector2 mouseEndPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 
         Vector2 moveDirection = (mouseEndPosition - objectStartPosition).normalized;
-        Direction dir = DetermineDirection(moveDirection);
-        Moving(dir);
-        GameController.instance.cake.GetComponent<Cake>().Moving(dir);
+        float distance = Vector2.Distance(mouseEndPosition, objectStartPosition);
+        Debug.Log(distance);
+        if (distance > 0.7f)
+        {
+            Direction dir = DetermineDirection(moveDirection);
+            Moving(dir);
+            GameController.instance.cake.GetComponent<Cake>().Moving(dir);
+        }
     }
     public void Moving(Direction direction)
     {
         var game = GameController.instance;
         int count = 0;
-        Debug.Log(direction);
+     
         switch (direction)
         {
             case Direction.Left:
@@ -91,7 +96,7 @@ public class Box : Characters
 
     IEnumerator MoveObject(Vector2 targetPosition)
     {
-        Debug.Log(targetPosition);
+   
         while (Vector2.Distance(rectTransform.anchoredPosition, targetPosition) > 0.01)
         {
 

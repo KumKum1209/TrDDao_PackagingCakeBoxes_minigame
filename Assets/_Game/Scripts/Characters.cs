@@ -5,7 +5,7 @@ using UnityEngine;
 public class Characters : MonoBehaviour
 {
     public Vector2 objectStartPosition;
-    public bool isDragging = false;
+  
     public int posx;
     public int posy;
     public int moveSpeed;

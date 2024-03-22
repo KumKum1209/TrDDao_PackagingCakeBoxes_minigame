@@ -32,8 +32,9 @@ public class UIManager : MonoBehaviour
         if (!game.IsPause)
         {
             time -= Time.deltaTime;
-            int Timer = Mathf.FloorToInt(time);
-            txttime.text = Timer.ToString();
+            string formattedTime = FormatTime(Mathf.FloorToInt(time));
+
+            txttime.text = formattedTime;
             if (game.IsWin)
             {
                 complete.SetActive(true);
@@ -49,6 +50,12 @@ public class UIManager : MonoBehaviour
             }
         }
 
+    }
+    public string FormatTime(int totalSeconds)
+    {
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
     public void Home()
     {
@@ -83,7 +90,7 @@ public class UIManager : MonoBehaviour
         {
             var lv = game.levels[game.currentLv];
             time = retime;
-            Debug.Log(lv);
+          
             lv.textlv.text = (lv.index + 1).ToString();
             complete.SetActive(false);
             main.SetActive(true);
